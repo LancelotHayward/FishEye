@@ -24,10 +24,22 @@
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="message_firstname">Prénom</label>
+						<input id="message_firstname" type="text">
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <div>
+						<label for="message_lastname">Nom</label>
+						<input id="message_lastname" type="text">
+					</div>
+          <div>
+						<label for="message_email">Adresse éléctronique</label>
+						<input id="message_email" type="email">
+					</div>
+          <div>
+						<label for="message_content">Message</label>
+						<input id="message_content" type="text">
+					</div>
+          <button class="contact_button" onclick="submitModal()">Envoyer</button>
 				</form>
 			</div>
 		</div>
