@@ -15,11 +15,11 @@ document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()
 })
 
-async function getPhotographer(name) {
+async function getPhotographer(id) {
     const response = await fetch("../../data/photographers.json")
     const photographers_data = await response.json()
     for (const photographer of photographers_data.photographers) {
-        if (photographer.name == name) {
+        if (photographer.id == id) {
             const photographer_media = []
             for (const media of photographers_data.media) {
                 if (media.photographerId == photographer.id) {
@@ -30,6 +30,7 @@ async function getPhotographer(name) {
             return photographer
         }
     }
+    return false
     // photographers_data.photographers.forEach(photographer => {
     //     if (photographer.name == name) {
     //         //console.log(photographer)
@@ -51,7 +52,12 @@ async function displayGalery(photographer) {
 }
 
 async function init() {
-    const photographer = await getPhotographer("Ellie-Rose Wilkens")
+    const urlParams = new URLSearchParams(window.location.search);
+    const photographer_id = urlParams.get('id')
+    const photographer = await getPhotographer(photographer_id)
+    if (!photographer) {
+        window.location = "index.html"
+    }
     updateHeader(photographer)
     displayGalery(photographer)
 }

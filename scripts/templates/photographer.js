@@ -1,19 +1,20 @@
 function photographerTemplate(data) {
-    const { name, portrait, city, country, tagline, price } = data;
+    const { name, portrait, city, country, tagline, price, id } = data;
 
     const portrait_path = `assets/photographers/${portrait}`;
 
-    function childConstructor(css, data, tag = "p", set_attribute = false) {
+    function childConstructor(css, data, tag = "p") {
         //Object.keys({name}).pop()
         const child = document.createElement(tag)
         child.classList.add(css)
-        if (set_attribute) {
+        if (tag == "img") {
             child.setAttribute("src", data)
+            return child
         }
         else {
             child.textContent = data
+            article.appendChild(child)
         }
-        article.appendChild(child)
     }
     function getUserCardDOM() {
         article = document.createElement( 'article' );
@@ -21,7 +22,10 @@ function photographerTemplate(data) {
             //const img = document.createElement( 'img' );
             //img.setAttribute("src", picture)
             //article.appendChild(img)
-            childConstructor("portrait", portrait_path, "img", true)
+            link = document.createElement("a")
+            link.setAttribute("href", "photographer.html?id="+id)
+            link.appendChild(childConstructor("portrait", portrait_path, "img"))
+            article.appendChild(link)
         //Name
             // const h2 = document.createElement( 'h2' );
             // h2.textContent = name;
