@@ -1,4 +1,4 @@
-//photographer.html
+//Modal
 function toggleModal() {
 	document.getElementById("contact_modal").classList.toggle("display-none")
 }
@@ -15,6 +15,7 @@ document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()
 })
 
+//Data
 async function getPhotographer(id) {
     const response = await fetch("../../data/photographers.json")
     const photographers_data = await response.json()
@@ -31,14 +32,9 @@ async function getPhotographer(id) {
         }
     }
     return false
-    // photographers_data.photographers.forEach(photographer => {
-    //     if (photographer.name == name) {
-    //         //console.log(photographer)
-    //         const desired_photographer = photographer
-    //     }
-    // });
-    // return desired_photographer
 }
+
+//Generate page
 async function updateHeader(photographer) {
     const { name, portrait, city, country, tagline } = photographer
     const portrait_path = `assets/photographers/${portrait}`
@@ -47,6 +43,7 @@ async function updateHeader(photographer) {
     document.getElementById("tagline").innerHTML = tagline;
     document.getElementById("portrait").setAttribute("src", portrait_path)
 }
+
 async function displayGalery(photographer) {
     console.log(photographer)
 }
@@ -61,4 +58,5 @@ async function init() {
     updateHeader(photographer)
     displayGalery(photographer)
 }
+
 init()
