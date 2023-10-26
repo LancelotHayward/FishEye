@@ -1,4 +1,27 @@
-//Mettre le code JavaScript lié à la page photographer.html
+//photographer.html
+async function getPhotographer(name) {
+    const response = await fetch("../../data/photographers.json")
+    const photographers_data = await response.json()
+    for (const photographer of photographers_data.photographers) {
+        if (photographer.name == name) {
+            const photographer_media = []
+            for (const media of photographers_data.media) {
+                if (media.photographerId == photographer.id) {
+                    photographer_media.push(media)
+                }
+            }
+            photographer["media"] = photographer_media
+            return photographer
+        }
+    }
+    // photographers_data.photographers.forEach(photographer => {
+    //     if (photographer.name == name) {
+    //         //console.log(photographer)
+    //         const desired_photographer = photographer
+    //     }
+    // });
+    // return desired_photographer
+}
 function toggleModal() {
 	document.getElementById("contact_modal").classList.toggle("display-none")
 }
@@ -11,3 +34,14 @@ function submitModal() {
     console.log(message)
     toggleModal()
 }
+document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
+    e.preventDefault()
+})
+async function displayGalery(photographer) {
+    console.log(photographer)
+}
+async function init() {
+    const photographer = await getPhotographer("Ellie-Rose Wilkens")
+    displayGalery(photographer)
+}
+init()
