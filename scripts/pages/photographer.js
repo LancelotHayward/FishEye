@@ -14,7 +14,12 @@ function submitModal() {
 document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()
 })
-
+//Like
+function likePhoto(id) {
+    const heart = document.querySelector('[data-id="'+id+'"]')
+    likes = parseInt(heart.getAttribute("data-before"))
+    heart.setAttribute("data-before", likes+1)
+}
 //Data
 async function getPhotographer(id) {
     const response = await fetch("../../data/photographers.json")
@@ -44,8 +49,38 @@ async function updateHeader(photographer) {
     document.getElementById("portrait").setAttribute("src", portrait_path)
 }
 
-async function displayGalery(photographer) {
-    console.log(photographer)
+async function displayGallery(photographer) {
+    const gallery = document.getElementById("gallery")
+    photographer.media.forEach(media => {
+        const article = document.createElement("article")
+        //Thumbnail
+            img = document.createElement("img")
+            if (media.image) {
+                file_path = "assets/photos/"+photographer.id+"/"+media.image
+                img.setAttribute("src", file_path)
+            }
+            else {
+                file_path = "assets/photos/"+photographer.id+"/"+media.video
+                img.setAttribute("src", file_path)
+            }
+            article.appendChild(img)
+        //Title & Likes
+            const information_container = document.createElement("div")
+            //Title
+                const title = document.createElement("p")
+                title.classList.add("title")
+                title.textContent = media.title
+                information_container.appendChild(title)
+            //Likes
+                const heart = document.createElement("button")
+                heart.classList.add("like-button")
+                heart.setAttribute("data-before", media.likes)
+                heart.setAttribute("data-id", media.id)
+                heart.setAttribute("onclick","likePhoto("+media.id+")")
+                information_container.appendChild(heart)
+            article.appendChild(information_container)
+        gallery.appendChild(article)
+    })
 }
 
 async function init() {
@@ -56,7 +91,7 @@ async function init() {
         window.location = "index.html"
     }
     updateHeader(photographer)
-    displayGalery(photographer)
+    displayGallery(photographer)
 }
 
 init()
