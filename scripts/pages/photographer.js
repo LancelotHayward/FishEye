@@ -1,4 +1,20 @@
 //photographer.html
+function toggleModal() {
+	document.getElementById("contact_modal").classList.toggle("display-none")
+}
+function submitModal() {
+    const message_firstname = document.getElementById("message_firstname").value
+    const message_lastname = document.getElementById("message_lastname").value
+    const message_email = document.getElementById("message_email").value
+    const message_content = document.getElementById("message_content").value
+    const message = message_firstname + " " + message_lastname + " (" + message_email + ") sent " + message_content
+    console.log(message)
+    toggleModal()
+}
+document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
+    e.preventDefault()
+})
+
 async function getPhotographer(name) {
     const response = await fetch("../../data/photographers.json")
     const photographers_data = await response.json()
@@ -22,26 +38,21 @@ async function getPhotographer(name) {
     // });
     // return desired_photographer
 }
-function toggleModal() {
-	document.getElementById("contact_modal").classList.toggle("display-none")
+async function updateHeader(photographer) {
+    const { name, portrait, city, country, tagline } = photographer
+    const portrait_path = `assets/photographers/${portrait}`
+    document.getElementById("name").innerHTML = name
+    document.getElementById("localisation").innerHTML = city + ", " + country
+    document.getElementById("tagline").innerHTML = tagline;
+    document.getElementById("portrait").setAttribute("src", portrait_path)
 }
-function submitModal() {
-    const message_firstname = document.getElementById("message_firstname").value
-    const message_lastname = document.getElementById("message_lastname").value
-    const message_email = document.getElementById("message_email").value
-    const message_content = document.getElementById("message_content").value
-    const message = message_firstname + " " + message_lastname + " (" + message_email + ") sent " + message_content
-    console.log(message)
-    toggleModal()
-}
-document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
-    e.preventDefault()
-})
 async function displayGalery(photographer) {
     console.log(photographer)
 }
+
 async function init() {
     const photographer = await getPhotographer("Ellie-Rose Wilkens")
+    updateHeader(photographer)
     displayGalery(photographer)
 }
 init()

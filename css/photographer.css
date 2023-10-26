@@ -6,8 +6,24 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
 }
-
+.photograph-header div * {
+    margin-right: unset;
+}
+.photograph-header #name {
+    color: var(--secondary)
+}
+.photograph-header #localisation {
+    color: var(--primary)
+}
+.photograph-header #tagline {
+    color: grey;
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -20,7 +36,12 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
+.photograph-header img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -30,7 +51,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .modal header {
