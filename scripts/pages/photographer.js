@@ -16,9 +16,18 @@ document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
 })
 //Like
 function likePhoto(id) {
+    const total_likes = document.getElementById("total-likes")
+    const total = parseInt(total_likes.getAttribute("data-before"))
     const heart = document.querySelector('[data-id="'+id+'"]')
-    likes = parseInt(heart.getAttribute("data-before"))
-    heart.setAttribute("data-before", likes+1)
+    const likes = parseInt(heart.getAttribute("data-before"))
+    if (likes == parseInt(heart.getAttribute("data-likes"))) {
+        heart.setAttribute("data-before", likes+1)
+        total_likes.setAttribute("data-before", total+1)
+    }
+    else {
+        heart.setAttribute("data-before", likes-1)
+        total_likes.setAttribute("data-before", total-1)
+    }
 }
 //Data
 async function getPhotographer(id) {
@@ -73,14 +82,25 @@ async function displayGallery(photographer) {
                 information_container.appendChild(title)
             //Likes
                 const heart = document.createElement("button")
-                heart.classList.add("like-button")
+                heart.classList.add("like-button", "heart")
                 heart.setAttribute("data-before", media.likes)
+                heart.setAttribute("data-likes", media.likes)
                 heart.setAttribute("data-id", media.id)
                 heart.setAttribute("onclick","likePhoto("+media.id+")")
                 information_container.appendChild(heart)
             article.appendChild(information_container)
         gallery.appendChild(article)
     })
+}
+
+async function updateAside(photographer) {
+    const display = document.getElementById("total-likes")
+    let likes = 0
+    for (const media of photographer.media) {
+        likes += media.likes
+    }
+    display.setAttribute("data-before", likes)
+    document.getElementById("price").textContent = photographer.price + "€ / jour"
 }
 
 async function init() {
@@ -92,6 +112,7 @@ async function init() {
     }
     updateHeader(photographer)
     displayGallery(photographer)
+    updateAside(photographer)
 }
 
 init()

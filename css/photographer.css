@@ -106,8 +106,54 @@ form input {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 #gallery img {
     width: 30vw;
     height: 30vw;
     object-fit: cover;
+    border-radius: 10px;
+}
+
+#gallery .like-button {
+    background-color: transparent;
+    border: none;
+}
+#gallery article div {
+    width: 30vw;
+    display: flex;
+    justify-content: space-between;
+}
+#gallery .title {
+    font-size: 24pt;
+}
+#gallery .title, #gallery .like-button::before, #gallery .like-button::after {
+    color: var(--primary)
+}
+
+.heart::before {
+    color: black;
+    content: attr(data-before);
+    font-size: 24pt;
+}
+.heart::after {
+    color: black;
+    content: " ♥";
+    font-size: 28pt;
+}
+
+aside {
+    background-color: var(--secondary);
+    position: fixed;
+    bottom: 0;
+    right: 1vw;
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1vw;
+}
+aside #price {
+    font-size: 24pt;
+    margin: unset;
 }
