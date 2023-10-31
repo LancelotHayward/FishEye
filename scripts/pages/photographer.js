@@ -63,7 +63,7 @@ async function displayGallery(photographer) {
     photographer.media.forEach(media => {
         const article = document.createElement("article")
         //Thumbnail
-            img = document.createElement("img")
+        const img = document.createElement("img")
             if (media.image) {
                 file_path = "assets/photos/"+photographer.id+"/"+media.image
                 img.setAttribute("src", file_path)
