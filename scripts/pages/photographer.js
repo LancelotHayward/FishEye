@@ -47,6 +47,29 @@ async function getPhotographer(id) {
     }
     return false
 }
+//Filters
+function sortMedia(photographer, filter) {
+    let sorting = []
+    for (let i = 0; i < photographer.media.length; i++) {
+        let media = photographer.media[i]
+        sorting.push([media[filter], media["id"]])
+    }
+    if (filter == "likes") {
+        sorting.sort(function(a, b){return b[0] - a[0]})
+    }
+    else {
+        sorting.sort()
+    }
+    let sorted_media = []
+    for (let i = 0; i<sorting.length; i++) {
+        photographer.media.forEach(media => {
+            if (sorting[i][1] == media.id) {
+                sorted_media.push(media)
+            }
+        })
+    }
+    return sorted_media
+}
 //Generate page
 async function updateHeader(photographer) {
     const { name, portrait, city, country, tagline } = photographer
@@ -59,7 +82,9 @@ async function updateHeader(photographer) {
 
 async function displayGallery(photographer) {
     const gallery = document.getElementById("gallery")
-    photographer.media.forEach(media => {
+    const filter = document.getElementById("filters").selectedOptions[0].value
+    const sorted_media = sortMedia(photographer, filter)
+    sorted_media.forEach(media => {
         const article = document.createElement("article")
         //Thumbnail
             let thumbnail

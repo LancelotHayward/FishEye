@@ -23,7 +23,14 @@
         <button class="contact_button" onclick="toggleModal()">Contactez-moi</button>
         <img id="portrait" src="" alt="">
       </div>
-      <div id="sort"></div>
+      <div id="sort">
+        <p>Trier par</p>
+        <select name="filters" id="filters">
+          <option value="likes">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+        </select>
+      </div>
       <section id="gallery"></section>
       <aside>
         <div id="total-likes" class="heart" data-before=""></div>

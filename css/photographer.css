@@ -1,13 +1,14 @@
 .display-none {
     display: none;
 }
-
+.photograph-header, #sort, #gallery {
+    margin: 0 2.5vw;
+    display: flex;
+}
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 2.5vw;
     padding: 0 30px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
@@ -98,10 +99,19 @@ form input {
     border: none;
     border-radius: 5px;
 }
+#sort {
+    margin-top: 2vh;
+    gap: 2vh;
+    margin-bottom: 4vh;
+    font-weight: bold;
+}
+#filters {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
 
 #gallery {
-    margin: 0 2.5vw;
-    display: flex;
     gap: 2vw;
     flex-wrap: wrap;
     justify-content: space-around;
