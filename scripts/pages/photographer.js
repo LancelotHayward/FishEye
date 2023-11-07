@@ -47,7 +47,6 @@ async function getPhotographer(id) {
     }
     return false
 }
-
 //Generate page
 async function updateHeader(photographer) {
     const { name, portrait, city, country, tagline } = photographer
@@ -63,16 +62,21 @@ async function displayGallery(photographer) {
     photographer.media.forEach(media => {
         const article = document.createElement("article")
         //Thumbnail
-        const img = document.createElement("img")
+            let thumbnail
             if (media.image) {
+                thumbnail = document.createElement("img")
                 file_path = "assets/photos/"+photographer.id+"/"+media.image
-                img.setAttribute("src", file_path)
+                thumbnail.setAttribute("src", file_path)
             }
             else {
+                thumbnail = document.createElement("video")
                 file_path = "assets/photos/"+photographer.id+"/"+media.video
-                img.setAttribute("src", file_path)
+                video_source = document.createElement("source")
+                video_source.setAttribute("src", file_path)
+                thumbnail.appendChild(video_source)
             }
-            article.appendChild(img)
+            thumbnail.classList.add("thumbnail")
+            article.appendChild(thumbnail)
         //Title & Likes
             const information_container = document.createElement("div")
             //Title

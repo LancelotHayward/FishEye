@@ -105,9 +105,10 @@ form input {
     gap: 2vw;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 4vw;
 }
 
-#gallery img {
+#gallery .thumbnail {
     width: 30vw;
     height: 30vw;
     object-fit: cover;
@@ -140,7 +141,6 @@ form input {
     content: " ♥";
     font-size: 28pt;
 }
-
 aside {
     background-color: var(--secondary);
     position: fixed;
