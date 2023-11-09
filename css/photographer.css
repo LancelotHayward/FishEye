@@ -129,7 +129,7 @@ form input {
     background-color: transparent;
     border: none;
 }
-#gallery article div {
+#gallery article > div {
     width: 30vw;
     display: flex;
     justify-content: space-between;
@@ -166,4 +166,22 @@ aside {
 aside #price {
     font-size: 24pt;
     margin: unset;
+}
+
+dialog:not([open]) {
+    display: none;
+}
+
+dialog {
+    display: flex;
+}
+
+dialog img, dialog video {
+    max-height: 75vh;
+}
+
+dialog .next {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

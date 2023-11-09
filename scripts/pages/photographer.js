@@ -29,6 +29,16 @@ function likePhoto(id) {
         total_likes.setAttribute("data-before", total-1)
     }
 }
+//Toggle Lightbox
+function toggleLightBox(id) {
+    const dialog = document.getElementById(id)
+    if (dialog.open) {
+        dialog.close()
+    }
+    else {
+        dialog.showModal()
+    }
+}
 //Data
 async function getPhotographer(id) {
     const response = await fetch("../../data/photographers.json")
@@ -100,6 +110,9 @@ async function displayGallery(photographer) {
                 video_source.setAttribute("src", file_path)
                 thumbnail.appendChild(video_source)
             }
+            thumbnail.addEventListener('click', function() {
+                toggleLightBox(media.id)
+            })
             thumbnail.classList.add("thumbnail")
             article.appendChild(thumbnail)
         //Title & Likes
@@ -118,6 +131,49 @@ async function displayGallery(photographer) {
                 heart.setAttribute("onclick","likePhoto("+media.id+")")
                 information_container.appendChild(heart)
             article.appendChild(information_container)
+        //Lightbox
+            const lightbox = document.createElement("dialog")
+            lightbox.setAttribute("id", media.id)
+            //Previous
+                const previous = document.createElement("button")
+                previous.textContent = "Previous"
+                lightbox.appendChild(previous)
+            //Media
+                const media_container = document.createElement("div")
+                if (media.image) {
+                    image = document.createElement("img")
+                    file_path = "assets/photos/"+photographer.id+"/"+media.image
+                    image.setAttribute("src", file_path)
+                    media_container.appendChild(image)
+                }
+                else {
+                    video = document.createElement("video")
+                    file_path = "assets/photos/"+photographer.id+"/"+media.video
+                    video_source = document.createElement("source")
+                    video_source.setAttribute("src", file_path)
+                    video.appendChild(video_source)
+                    media_container.appendChild(video)
+                }
+                media_container.appendChild(title)
+                lightbox.appendChild(media_container)
+            //Next
+                const next_container = document.createElement("div")
+                next_container.classList.add("next")
+                //Exit
+                    exit = document.createElement("button")
+                    exit.onclick = function () {
+                        toggleLightBox(media.id)
+                    }
+                    exit.textContent = "Exit"
+                    next_container.appendChild(exit)
+                //Next
+                    next = document.createElement("button")
+                    next.textContent = "next"
+                    next_container.appendChild(next)
+                //Spacer
+                    next_container.appendChild(document.createElement("div"))
+                lightbox.appendChild(next_container)
+            article.appendChild(lightbox)
         gallery.appendChild(article)
     })
 }
