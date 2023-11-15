@@ -132,15 +132,27 @@ function createArticle(photographer, media) {
 }
 
 //Create lightbox
-function createLightbox(photographer, media) {
+function createLightbox(photographer, media, previousID) {
+    //Update next from previousLightbox
+    if (previousID) {
+        document.getElementById(previousID).getElementsByClassName("dialog_next")[0].onclick = function () {
+            toggleLightBox(previousID)
+            toggleLightBox(media.id)
+        }
+    }
     const lightbox = document.createElement("dialog")
     lightbox.setAttribute("id", media.id)
     //Previous
         const previous = document.createElement("button")
         previous.textContent = "Previous"
+        previous.onclick = function () {
+            toggleLightBox(media.id)
+            toggleLightBox(previousID)
+        }
         lightbox.appendChild(previous)
     //Media
         const media_container = document.createElement("div")
+        media_container.classList.add("dialog_media")
         if (media.image) {
             image = document.createElement("img")
             file_path = "assets/photos/"+photographer.id+"/"+media.image
@@ -161,9 +173,9 @@ function createLightbox(photographer, media) {
             title.textContent = media.title
             media_container.appendChild(title)
         lightbox.appendChild(media_container)
-    //Next
+    //Right
         const next_container = document.createElement("div")
-        next_container.classList.add("next")
+        next_container.classList.add("dialog_right")
         //Exit
             exit = document.createElement("button")
             exit.onclick = function () {
@@ -174,6 +186,10 @@ function createLightbox(photographer, media) {
         //Next
             next = document.createElement("button")
             next.textContent = "next"
+            next.classList.add("dialog_next")
+            next.onclick = function () {
+                toggleLightBox(media.id)
+            }
             next_container.appendChild(next)
         //Spacer
             next_container.appendChild(document.createElement("div"))
@@ -193,9 +209,11 @@ async function displayGallery(photographer) {
     }
     
     const sorted_media = sortMedia(photographer, filter)
+    let previousID
     sorted_media.forEach(media => {
         gallery.appendChild(createArticle(photographer, media))
-        gallery.appendChild(createLightbox(photographer, media))
+        gallery.appendChild(createLightbox(photographer, media, previousID))
+        previousID = media.id
     })
 }
 

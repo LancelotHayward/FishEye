@@ -174,13 +174,23 @@ dialog:not([open]) {
 
 dialog {
     display: flex;
+    justify-content: center;
+    width: 99vw;
+    height: 99vh;
+    border-color: white;
 }
-
+dialog .dialog_media {
+    text-align: center;
+    width: 75vw;
+}
 dialog img, dialog video {
     max-height: 75vh;
+    object-fit: contain;
+    box-shadow: lightgrey 5px 0;
+    border-radius: 10px;
 }
 
-dialog .next {
+dialog .dialog_right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
