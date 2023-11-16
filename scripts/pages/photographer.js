@@ -1,7 +1,4 @@
 //Modal
-function toggleModal() {
-	document.getElementById("contact_modal").classList.toggle("display-none")
-}
 function submitModal() {
     const message_firstname = document.getElementById("message_firstname").value
     const message_lastname = document.getElementById("message_lastname").value
@@ -98,13 +95,13 @@ function createArticle(photographer, media) {
         let thumbnail
         if (media.image) {
             thumbnail = document.createElement("img")
-            file_path = "assets/photos/"+photographer.id+"/"+media.image
+            const file_path = "assets/photos/"+photographer.id+"/"+media.image
             thumbnail.setAttribute("src", file_path)
         }
         else {
             thumbnail = document.createElement("video")
-            file_path = "assets/photos/"+photographer.id+"/"+media.video
-            video_source = document.createElement("source")
+            const file_path = "assets/photos/"+photographer.id+"/"+media.video
+            const video_source = document.createElement("source")
             video_source.setAttribute("src", file_path)
             thumbnail.appendChild(video_source)
         }
@@ -141,9 +138,9 @@ function createArticle(photographer, media) {
 
 //Create lightbox
 function createLightbox(photographer, media, previousID) {
-    //Update next from previousLightbox
+    //Update next from previous Lightbox
     if (previousID) {
-        previous_article = document.getElementById(previousID).getElementsByClassName("dialog_next")[0]
+        const previous_article = document.getElementById(previousID).getElementsByClassName("dialog_next")[0]
         previous_article.onclick = function () {
             toggleDialog(previousID)
             toggleDialog(media.id)
@@ -177,15 +174,15 @@ function createLightbox(photographer, media, previousID) {
         const media_container = document.createElement("div")
         media_container.classList.add("dialog_media")
         if (media.image) {
-            image = document.createElement("img")
-            file_path = "assets/photos/"+photographer.id+"/"+media.image
+            const image = document.createElement("img")
+            const file_path = "assets/photos/"+photographer.id+"/"+media.image
             image.setAttribute("src", file_path)
             media_container.appendChild(image)
         }
         else {
-            video = document.createElement("video")
-            file_path = "assets/photos/"+photographer.id+"/"+media.video
-            video_source = document.createElement("source")
+            let video = document.createElement("video")
+            const file_path = "assets/photos/"+photographer.id+"/"+media.video
+            const video_source = document.createElement("source")
             video_source.setAttribute("src", file_path)
             video.appendChild(video_source)
             media_container.appendChild(video)
@@ -200,14 +197,14 @@ function createLightbox(photographer, media, previousID) {
         const next_container = document.createElement("div")
         next_container.classList.add("dialog_right")
         //Exit
-            exit = document.createElement("button")
+            let exit = document.createElement("button")
             exit.onclick = function () {
                 toggleDialog(media.id)
             }
             exit.textContent = "X"
             next_container.appendChild(exit)
         //Next
-            next = document.createElement("button")
+            let next = document.createElement("button")
             next.textContent = ">"
             next.classList.add("dialog_next")
             next.onclick = function () {
