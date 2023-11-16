@@ -163,6 +163,7 @@ aside {
     border-top-right-radius: 10px;
     padding: 1vw;
 }
+
 aside #price {
     font-size: 24pt;
     margin: unset;
@@ -179,10 +180,18 @@ dialog {
     height: 99vh;
     border-color: white;
 }
+
+dialog button {
+    color: var(--primary);
+    border: none;
+    background: transparent;
+    font-size: 32pt;
+}
 dialog .dialog_media {
     text-align: center;
     width: 75vw;
 }
+
 dialog img, dialog video {
     max-height: 75vh;
     object-fit: contain;

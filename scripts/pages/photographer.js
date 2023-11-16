@@ -107,8 +107,14 @@ function createArticle(photographer, media) {
             video_source.setAttribute("src", file_path)
             thumbnail.appendChild(video_source)
         }
+        thumbnail.setAttribute("tabindex", "0")
         thumbnail.addEventListener('click', function() {
             toggleLightBox(media.id)
+        })
+        thumbnail.addEventListener("keydown", (e) => {
+            if (!e.repeat && e.key == "Enter") {
+                toggleLightBox(media.id)
+            }
         })
         thumbnail.classList.add("thumbnail")
         article.appendChild(thumbnail)
@@ -135,20 +141,34 @@ function createArticle(photographer, media) {
 function createLightbox(photographer, media, previousID) {
     //Update next from previousLightbox
     if (previousID) {
-        document.getElementById(previousID).getElementsByClassName("dialog_next")[0].onclick = function () {
+        previous_article = document.getElementById(previousID).getElementsByClassName("dialog_next")[0]
+        previous_article.onclick = function () {
             toggleLightBox(previousID)
             toggleLightBox(media.id)
         }
+        previous_article.addEventListener("keydown", (e) => {
+            console.log(e.key)
+            if (!e.repeat && e.key == "ArrowRight") {
+                toggleLightBox(previousID)
+                toggleLightBox(media.id)
+            }
+        })
     }
     const lightbox = document.createElement("dialog")
     lightbox.setAttribute("id", media.id)
     //Previous
         const previous = document.createElement("button")
-        previous.textContent = "Previous"
+        previous.textContent = "<"
         previous.onclick = function () {
             toggleLightBox(media.id)
             toggleLightBox(previousID)
         }
+        previous.addEventListener("keydown", (e) => {
+            if (!e.repeat && e.key == "ArrowLeft") {
+                toggleLightBox(media.id)
+                toggleLightBox(previousID)
+            }
+        })
         lightbox.appendChild(previous)
     //Media
         const media_container = document.createElement("div")
@@ -181,11 +201,11 @@ function createLightbox(photographer, media, previousID) {
             exit.onclick = function () {
                 toggleLightBox(media.id)
             }
-            exit.textContent = "Exit"
+            exit.textContent = "X"
             next_container.appendChild(exit)
         //Next
             next = document.createElement("button")
-            next.textContent = "next"
+            next.textContent = ">"
             next.classList.add("dialog_next")
             next.onclick = function () {
                 toggleLightBox(media.id)
