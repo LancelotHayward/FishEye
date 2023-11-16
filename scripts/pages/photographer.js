@@ -9,7 +9,7 @@ function submitModal() {
     const message_content = document.getElementById("message_content").value
     const message = message_firstname + " " + message_lastname + " (" + message_email + ") sent " + message_content
     console.log(message)
-    toggleModal()
+    toggleDialog("contact_modal")
 }
 document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()
@@ -30,7 +30,7 @@ function likePhoto(id) {
     }
 }
 //Toggle Lightbox
-function toggleLightBox(id) {
+function toggleDialog(id) {
     const dialog = document.getElementById(id)
     if (dialog.open) {
         dialog.close()
@@ -109,11 +109,11 @@ function createArticle(photographer, media) {
         }
         thumbnail.setAttribute("tabindex", "0")
         thumbnail.addEventListener('click', function() {
-            toggleLightBox(media.id)
+            toggleDialog(media.id)
         })
         thumbnail.addEventListener("keydown", (e) => {
             if (!e.repeat && e.key == "Enter") {
-                toggleLightBox(media.id)
+                toggleDialog(media.id)
             }
         })
         thumbnail.classList.add("thumbnail")
@@ -143,30 +143,31 @@ function createLightbox(photographer, media, previousID) {
     if (previousID) {
         previous_article = document.getElementById(previousID).getElementsByClassName("dialog_next")[0]
         previous_article.onclick = function () {
-            toggleLightBox(previousID)
-            toggleLightBox(media.id)
+            toggleDialog(previousID)
+            toggleDialog(media.id)
         }
         previous_article.addEventListener("keydown", (e) => {
             console.log(e.key)
             if (!e.repeat && e.key == "ArrowRight") {
-                toggleLightBox(previousID)
-                toggleLightBox(media.id)
+                toggleDialog(previousID)
+                toggleDialog(media.id)
             }
         })
     }
     const lightbox = document.createElement("dialog")
     lightbox.setAttribute("id", media.id)
+    lightbox.classList.add("lightbox")
     //Previous
         const previous = document.createElement("button")
         previous.textContent = "<"
         previous.onclick = function () {
-            toggleLightBox(media.id)
-            toggleLightBox(previousID)
+            toggleDialog(media.id)
+            toggleDialog(previousID)
         }
         previous.addEventListener("keydown", (e) => {
             if (!e.repeat && e.key == "ArrowLeft") {
-                toggleLightBox(media.id)
-                toggleLightBox(previousID)
+                toggleDialog(media.id)
+                toggleDialog(previousID)
             }
         })
         lightbox.appendChild(previous)
@@ -199,7 +200,7 @@ function createLightbox(photographer, media, previousID) {
         //Exit
             exit = document.createElement("button")
             exit.onclick = function () {
-                toggleLightBox(media.id)
+                toggleDialog(media.id)
             }
             exit.textContent = "X"
             next_container.appendChild(exit)
@@ -208,7 +209,7 @@ function createLightbox(photographer, media, previousID) {
             next.textContent = ">"
             next.classList.add("dialog_next")
             next.onclick = function () {
-                toggleLightBox(media.id)
+                toggleDialog(media.id)
             }
             next_container.appendChild(next)
         //Spacer

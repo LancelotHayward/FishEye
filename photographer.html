@@ -20,7 +20,7 @@
           <p id="localisation"></p>
           <p id="tagline"></p>
         </div>
-        <button class="contact_button" onclick="toggleModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="toggleDialog('contact_modal')">Contactez-moi</button>
         <img id="portrait" src="" alt="">
       </div>
       <div id="sort">
@@ -37,11 +37,11 @@
         <p id="price"></p>
       </aside>
     </main>
-    <div id="contact_modal" class="display-none">
+    <dialog id="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="toggleModal()" />
+          <img src="assets/icons/close.svg" onclick="toggleModal()" tabindex="0"/>
         </header>
 				<form>
 					<div>
@@ -58,12 +58,12 @@
 					</div>
           <div>
 						<label for="message_content">Message</label>
-						<input id="message_content" type="text">
+						<textarea id="message_content"></textarea>
 					</div>
           <button class="contact_button" onclick="submitModal()">Envoyer</button>
 				</form>
 			</div>
-		</div>
+		</dialog>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>

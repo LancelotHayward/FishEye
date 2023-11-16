@@ -52,7 +52,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    position: absolute;
+    position: fixed;
     top: 5vh;
     left: 50%;
     transform: translate(-50%, 0);
@@ -93,11 +93,12 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+form input, form textarea {
     width: 100%;
     height: 68px;
     border: none;
     border-radius: 5px;
+    font-size: 16pt;
 }
 #sort {
     margin-top: 2vh;
@@ -173,7 +174,7 @@ dialog:not([open]) {
     display: none;
 }
 
-dialog {
+.lightbox {
     display: flex;
     justify-content: center;
     width: 99vw;
@@ -181,25 +182,25 @@ dialog {
     border-color: white;
 }
 
-dialog button {
+.lightbox button {
     color: var(--primary);
     border: none;
     background: transparent;
     font-size: 32pt;
 }
-dialog .dialog_media {
+.lightbox .dialog_media {
     text-align: center;
     width: 75vw;
 }
 
-dialog img, dialog video {
+.lightbox img, .lightbox video {
     max-height: 75vh;
     object-fit: contain;
     box-shadow: lightgrey 5px 0;
     border-radius: 10px;
 }
 
-dialog .dialog_right {
+.lightbox .dialog_right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
