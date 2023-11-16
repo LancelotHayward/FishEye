@@ -88,6 +88,7 @@ async function updateHeader(photographer) {
     document.getElementById("localisation").innerHTML = city + ", " + country
     document.getElementById("tagline").innerHTML = tagline;
     document.getElementById("portrait").setAttribute("src", portrait_path)
+    document.getElementById("portrait").setAttribute("alt", "Portrait de " + name)
 }
 
 //Create article
@@ -108,6 +109,7 @@ function createArticle(photographer, media) {
             thumbnail.appendChild(video_source)
         }
         thumbnail.setAttribute("tabindex", "0")
+        thumbnail.setAttribute("alt", media.title)
         thumbnail.addEventListener('click', function() {
             toggleDialog(media.id)
         })

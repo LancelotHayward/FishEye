@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
   <body>
     <header>
       <a href="index.html">
-        <img src="assets/images/logo.png" class="logo">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye">
       </a>
     </header>
     <main id="main">
@@ -24,7 +24,7 @@
         <img id="portrait" src="" alt="">
       </div>
       <div id="sort">
-        <p>Trier par</p>
+        <label for="filters">Trier par</label>
         <select name="filters" id="filters">
           <option value="likes">Popularité</option>
           <option value="date">Date</option>
@@ -41,7 +41,7 @@
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="toggleModal()" tabindex="0"/>
+          <img src="assets/icons/close.svg" onclick="toggleModal()" tabindex="0" alt="close"/>
         </header>
 				<form>
 					<div>
