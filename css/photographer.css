@@ -188,19 +188,33 @@ dialog:not([open]) {
     background: transparent;
     font-size: 32pt;
 }
-.lightbox .dialog_media {
+.dialog_media {
     text-align: center;
     width: 75vw;
 }
 
-.lightbox img, .lightbox video {
+.dialog_media img, .dialog_media video {
     max-height: 75vh;
     object-fit: contain;
     box-shadow: lightgrey 5px 0;
     border-radius: 10px;
 }
 
-.lightbox .dialog_right {
+.lightbox > .dialog_arrow {
+    margin-top: auto;
+    transform: translateY(72px);
+    margin-bottom: auto;
+}
+
+.dialog_arrow {
+    max-height: 48px;
+}
+
+.dialog_right .dialog_arrow {
+    transform: scaleX(-1);
+}
+
+.dialog_right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

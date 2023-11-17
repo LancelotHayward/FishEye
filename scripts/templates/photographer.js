@@ -18,7 +18,7 @@ function photographerTemplate(data) {
         //Link & Image
             const link = document.createElement("a")
             link.setAttribute("href", "photographer.html?id="+id)
-            img = childConstructor("portrait", portrait_path, "img")
+            const img = childConstructor("portrait", portrait_path, "img")
             link.appendChild(img)
             article.appendChild(link)
         //Information

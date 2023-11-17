@@ -140,13 +140,12 @@ function createArticle(photographer, media) {
 function createLightbox(photographer, media, previousID) {
     //Update next from previous Lightbox
     if (previousID) {
-        const previous_article = document.getElementById(previousID).getElementsByClassName("dialog_next")[0]
-        previous_article.onclick = function () {
+        const previous_article = document.getElementById(previousID)
+        previous_article.getElementsByClassName("dialog_arrow")[1].onclick = function () {
             toggleDialog(previousID)
             toggleDialog(media.id)
         }
         previous_article.addEventListener("keydown", (e) => {
-            console.log(e.key)
             if (!e.repeat && e.key == "ArrowRight") {
                 toggleDialog(previousID)
                 toggleDialog(media.id)
@@ -157,36 +156,43 @@ function createLightbox(photographer, media, previousID) {
     lightbox.setAttribute("id", media.id)
     lightbox.classList.add("lightbox")
     //Previous
-        const previous = document.createElement("button")
-        previous.textContent = "<"
+        const previous = document.createElement("img")
+        previous.setAttribute("src","assets/icons/arrow.png")
+        previous.setAttribute("alt","Previous")
+        previous.classList.add("dialog_arrow")
         previous.onclick = function () {
             toggleDialog(media.id)
-            toggleDialog(previousID)
+            if (previousID) {
+                toggleDialog(previousID)
+            }
         }
-        previous.addEventListener("keydown", (e) => {
+        lightbox.addEventListener("keydown", (e) => {
             if (!e.repeat && e.key == "ArrowLeft") {
                 toggleDialog(media.id)
-                toggleDialog(previousID)
+                if (previousID) {
+                    toggleDialog(previousID)
+                }
             }
         })
         lightbox.appendChild(previous)
-    //Media
+    //Media container
         const media_container = document.createElement("div")
         media_container.classList.add("dialog_media")
-        if (media.image) {
-            const image = document.createElement("img")
-            const file_path = "assets/photos/"+photographer.id+"/"+media.image
-            image.setAttribute("src", file_path)
-            media_container.appendChild(image)
-        }
-        else {
-            let video = document.createElement("video")
-            const file_path = "assets/photos/"+photographer.id+"/"+media.video
-            const video_source = document.createElement("source")
-            video_source.setAttribute("src", file_path)
-            video.appendChild(video_source)
-            media_container.appendChild(video)
-        }
+        //Media
+            if (media.image) {
+                const image = document.createElement("img")
+                const file_path = "assets/photos/"+photographer.id+"/"+media.image
+                image.setAttribute("src", file_path)
+                media_container.appendChild(image)
+            }
+            else {
+                let video = document.createElement("video")
+                const file_path = "assets/photos/"+photographer.id+"/"+media.video
+                const video_source = document.createElement("source")
+                video_source.setAttribute("src", file_path)
+                video.appendChild(video_source)
+                media_container.appendChild(video)
+            }
         //Title
             const title = document.createElement("p")
             title.classList.add("title")
@@ -197,16 +203,18 @@ function createLightbox(photographer, media, previousID) {
         const next_container = document.createElement("div")
         next_container.classList.add("dialog_right")
         //Exit
-            let exit = document.createElement("button")
+            let exit = document.createElement("img")
+            exit.setAttribute("src","assets/icons/close-24px.png")
+            exit.setAttribute("alt","Exit")
             exit.onclick = function () {
                 toggleDialog(media.id)
             }
-            exit.textContent = "X"
             next_container.appendChild(exit)
         //Next
-            let next = document.createElement("button")
-            next.textContent = ">"
-            next.classList.add("dialog_next")
+            let next = document.createElement("img")
+            next.setAttribute("src","assets/icons/arrow.png")
+            next.setAttribute("alt","Next")
+            next.classList.add("dialog_arrow")
             next.onclick = function () {
                 toggleDialog(media.id)
             }
