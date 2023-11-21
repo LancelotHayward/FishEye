@@ -28,6 +28,7 @@ function likePhoto(id) {
 }
 //Toggle Lightbox
 function toggleDialog(id) {
+    console.log(id)
     const dialog = document.getElementById(id)
     if (dialog.open) {
         dialog.close()
@@ -112,6 +113,7 @@ function createArticle(photographer, media) {
         })
         thumbnail.addEventListener("keydown", (e) => {
             if (!e.repeat && e.key == "Enter") {
+                console.log(media.id)
                 toggleDialog(media.id)
             }
         })
@@ -141,7 +143,7 @@ function createLightbox(photographer, media, previousID) {
     //Update next from previous Lightbox
     if (previousID) {
         const previous_article = document.getElementById(previousID)
-        previous_article.getElementsByClassName("dialog_arrow")[1].onclick = function () {
+        previous_article.getElementsByClassName("dialog_arrow")[1].parentElement.onclick = function () {
             toggleDialog(previousID)
             toggleDialog(media.id)
         }
@@ -152,20 +154,27 @@ function createLightbox(photographer, media, previousID) {
             }
         })
     }
-    const lightbox = document.createElement("dialog")
+    let lightbox = document.createElement("dialog")
     lightbox.setAttribute("id", media.id)
     lightbox.classList.add("lightbox")
+    //Blocker
+        let blocker = document.createElement("button")
+        blocker.setAttribute("style","outline:none")
+        lightbox.appendChild(blocker)
     //Previous
-        const previous = document.createElement("img")
+        let previous = document.createElement("img")
         previous.setAttribute("src","assets/icons/arrow.png")
         previous.setAttribute("alt","Previous")
         previous.classList.add("dialog_arrow")
-        previous.onclick = function () {
+        let previous_button = document.createElement("button")
+        previous_button.appendChild(previous)
+        previous_button.onclick = function () {
             toggleDialog(media.id)
             if (previousID) {
                 toggleDialog(previousID)
             }
         }
+        lightbox.appendChild(previous_button)
         lightbox.addEventListener("keydown", (e) => {
             if (!e.repeat && e.key == "ArrowLeft") {
                 toggleDialog(media.id)
@@ -174,7 +183,6 @@ function createLightbox(photographer, media, previousID) {
                 }
             }
         })
-        lightbox.appendChild(previous)
     //Media container
         const media_container = document.createElement("div")
         media_container.classList.add("dialog_media")
@@ -206,19 +214,23 @@ function createLightbox(photographer, media, previousID) {
             let exit = document.createElement("img")
             exit.setAttribute("src","assets/icons/close-24px.png")
             exit.setAttribute("alt","Exit")
-            exit.onclick = function () {
+            let exit_button = document.createElement("button")
+            exit_button.appendChild(exit)
+            exit_button.onclick = function () {
                 toggleDialog(media.id)
             }
-            next_container.appendChild(exit)
+            next_container.appendChild(exit_button)
         //Next
             let next = document.createElement("img")
             next.setAttribute("src","assets/icons/arrow.png")
             next.setAttribute("alt","Next")
             next.classList.add("dialog_arrow")
-            next.onclick = function () {
+            let next_button = document.createElement("button")
+            next_button.appendChild(next)
+            next_button.onclick = function () {
                 toggleDialog(media.id)
             }
-            next_container.appendChild(next)
+            next_container.appendChild(next_button)
         //Spacer
             next_container.appendChild(document.createElement("div"))
         lightbox.appendChild(next_container)

@@ -219,3 +219,9 @@ dialog:not([open]) {
     flex-direction: column;
     justify-content: space-between;
 }
+
+.hidden-button
+{
+    background-color: transparent;
+    border: none;
+}
