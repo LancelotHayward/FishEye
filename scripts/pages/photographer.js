@@ -121,7 +121,7 @@ function createArticle(photographer, media) {
             thumbnail.appendChild(video_source)
         }
         thumbnail.setAttribute("tabindex", "0")
-        thumbnail.setAttribute("alt", media.title)
+        thumbnail.setAttribute("alt", media.title + " closeup")
         thumbnail.classList.add("thumbnail")
         thumbnail = createEventListeners(thumbnail, media.id)
         article.appendChild(thumbnail)
@@ -139,6 +139,7 @@ function createArticle(photographer, media) {
             heart.setAttribute("data-likes", media.likes)
             heart.setAttribute("data-id", media.id)
             heart.setAttribute("onclick","likePhoto("+media.id+")")
+            heart.setAttribute("aria-label", "likes")
             information_container.appendChild(heart)
         article.appendChild(information_container)
     return article
