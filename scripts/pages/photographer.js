@@ -1,12 +1,28 @@
-//Modal
+//Validate contact form
+function validateFirstName(first_name) {
+    return (first_name.length > 1)
+}
+function validateLastName(last_name) {
+    return (last_name.length > 1)
+}
+function validateEmail(email) {
+    const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+    return emailRegex.test(email)
+}
+function validateMessage(message) {
+    return (message.length > 1)
+}
 function submitModal() {
-    const message_firstname = document.getElementById("message_firstname").value
-    const message_lastname = document.getElementById("message_lastname").value
-    const message_email = document.getElementById("message_email").value
+    const firstname = document.getElementById("message_firstname").value
+    const lastname = document.getElementById("message_lastname").value
+    const email = document.getElementById("message_email").value
     const message_content = document.getElementById("message_content").value
-    const message = message_firstname + " " + message_lastname + " (" + message_email + ") sent " + message_content
-    console.log(message)
-    toggleDialog("contact_modal")
+    const isValid = validateFirstName(firstname) && validateLastName(lastname) && validateEmail(email) && validateMessage(message_content)
+    if (isValid) {
+        const message = firstname + " " + lastname + " (" + email + ") sent " + message_content
+        console.log(message)
+        toggleDialog("contact_modal")
+    }
 }
 document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()

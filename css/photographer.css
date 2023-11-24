@@ -105,13 +105,18 @@ form input, form textarea {
     gap: 2vh;
     margin-bottom: 4vh;
     font-weight: bold;
+    font-size: 16pt;
 }
 #filters {
     background-color: var(--primary);
     color: white;
     border: none;
+    appearance: none;
+    font-size: 16pt;
 }
-
+#filters option:hover {
+    box-shadow: 0 0 10px 100px green inset;
+}
 #gallery {
     gap: 2vw;
     flex-wrap: wrap;
@@ -120,8 +125,8 @@ form input, form textarea {
 }
 
 #gallery .thumbnail {
-    width: 30vw;
-    height: 30vw;
+    width: 28vw;
+    height: 28vw;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -131,7 +136,7 @@ form input, form textarea {
     border: none;
 }
 #gallery article > div {
-    width: 30vw;
+    width: 28vw;
     display: flex;
     justify-content: space-between;
 }
@@ -188,6 +193,12 @@ dialog:not([open]) {
     background: transparent;
     font-size: 32pt;
 }
+.lightbox > button {
+    height: 59px;
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: translateY(40px);
+}
 .dialog_media {
     text-align: center;
     width: 75vw;
@@ -219,7 +230,6 @@ dialog:not([open]) {
     flex-direction: column;
     justify-content: space-between;
 }
-
 .hidden-button
 {
     background-color: transparent;
