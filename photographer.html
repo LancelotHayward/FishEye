@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <a href="index.html">
+      <a href="index.html" tabindex="1">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home Page">
       </a>
     </header>
@@ -20,16 +20,16 @@
           <p id="localisation"></p>
           <p id="tagline"></p>
         </div>
-        <button class="contact_button" onclick="toggleDialog('contact_modal')">Contactez-moi</button>
+        <button class="contact_button" onclick="toggleDialog('contact_modal')" tabindex="2">Contactez-moi</button>
         <img id="portrait" src="" alt="">
       </div>
       <div id="sort">
-        <label for="filters">Trier par</label>
-        <select name="filters" id="filters">
-          <option value="likes">Popularité</option>
-          <option value="date">Date</option>
-          <option value="title">Titre</option>
-        </select>
+        <p>Trier par</p>
+        <div role="listbox" id="sorting" data-show-options="false">
+          <p role="option" class="option" id="selected" data-option="likes" tabindex="3">Popularité</p>
+          <p role="option" class="option" data-option="date" tabindex="4">Date</p>
+          <p role="option" class="option" data-option="title" tabindex="5">Titre</p>
+        </div>
       </div>
       <section id="gallery"></section>
       <aside>

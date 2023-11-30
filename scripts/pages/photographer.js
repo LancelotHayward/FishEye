@@ -28,16 +28,33 @@ document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
     e.preventDefault()
 })
 //Create event listeners (click or enter)
-function createEventListeners(button, id) {
-    button.addEventListener('click', function() {
-        toggleDialog(id)
-    })
-    button.addEventListener("keydown", (e) => {
-        if (!e.repeat && e.key == "Enter") {
+//Dialogues
+    function createEventListeners(button, id) {
+        button.addEventListener('click', function() {
             toggleDialog(id)
-        }
-    })
-    return button
+        })
+        button.addEventListener("keydown", (e) => {
+            if (!e.repeat && e.key == "Enter") {
+                toggleDialog(id)
+            }
+        })
+        return button
+    }
+//Sorting options
+function createSortingEventListeners(photographer) {
+    const all_options = document.getElementsByClassName("option")
+    for (let i=0; i<3;i++) {
+        all_options[i].addEventListener('click', function() {
+            manageSortingOptions(all_options[i])
+            displayGallery(photographer)
+        })
+        all_options[i].addEventListener("keydown", (e) => {
+            if (!e.repeat && e.key == "Enter") {
+                manageSortingOptions(all_options[i])
+                displayGallery(photographer)
+            }
+        })
+    }
 }
 //Toggle Lightbox
 function toggleDialog(id) {
@@ -83,16 +100,29 @@ async function getPhotographer(id) {
     }
     return false
 }
-//Filters
-function sortMedia(photographer, filter) {
+//Sort
+function manageSortingOptions(option) {
+    const sorting = document.getElementById("sorting")
+    const show_options = sorting.getAttribute("data-show-options") === "true"
+    if (show_options) {
+        const selected = document.getElementById("selected")
+        selected.setAttribute("id", "unselected")
+        option.setAttribute("id", "selected")
+    }
+    sorting.setAttribute("data-show-options", !show_options)
+    console.log(show_options)
+}
+function sortMedia(photographer) {
+    //Get selected sorting option
+        let selected = document.getElementById("selected").getAttribute("data-option")
     //Get a list of the relevant information
         let sorting = []
         for (let i = 0; i < photographer.media.length; i++) {
             let media = photographer.media[i]
-            sorting.push([media[filter], media["id"]])
+            sorting.push([media[selected], media["id"]])
         }
     //Apply the relevant sorting algorithm
-        if (filter == "likes") {
+        if (selected == "likes") {
             sorting.sort(function(a, b){return b[0] - a[0]})
         }
         else {
@@ -118,6 +148,7 @@ async function updateHeader(photographer) {
     document.getElementById("tagline").innerHTML = tagline;
     document.getElementById("portrait").setAttribute("src", portrait_path)
     document.getElementById("portrait").setAttribute("alt", "Portrait de " + name)
+    createSortingEventListeners(photographer)
 }
 //Create article (These contain the thumbnail, title, and like button/count.)
 function createArticle(photographer, media) {
@@ -266,13 +297,7 @@ async function displayGallery(photographer) {
         while (gallery.firstChild) {
             gallery.removeChild(gallery.firstChild);
         }
-    //Sort
-        const filter_selector = document.getElementById("filters")
-        const filter = filter_selector.selectedOptions[0].value
-        filter_selector.onchange = function() {
-            displayGallery(photographer)
-        }
-        const sorted_media = sortMedia(photographer, filter)
+    const sorted_media = sortMedia(photographer)
     //previousID exists so that lightboxes can have previous and next buttons
         let previousID
     sorted_media.forEach(media => {
