@@ -162,6 +162,7 @@ function createArticle(photographer, media) {
         }
         else {
             thumbnail = document.createElement("video")
+            article.classList.add("video_thumbnail")
             const file_path = "assets/photos/"+photographer.id+"/"+media.video
             const video_source = document.createElement("source")
             video_source.setAttribute("src", file_path)
@@ -235,6 +236,7 @@ function createLightbox(photographer, media, previousID) {
             }
             else {
                 let video = document.createElement("video")
+                video.setAttribute("controls","controls")
                 const file_path = "assets/photos/"+photographer.id+"/"+media.video
                 const video_source = document.createElement("source")
                 video_source.setAttribute("src", file_path)
