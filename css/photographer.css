@@ -253,10 +253,10 @@ dialog:not([open]) {
     background-color: transparent;
     border: none;
 }
-.video_thumbnail {
+article:has(.video_thumbnail) {
     position: relative;
 }
-.video_thumbnail::after {
+article:has(.video_thumbnail)::after {
     position: absolute;
     top: 40%;
     right: 50%;

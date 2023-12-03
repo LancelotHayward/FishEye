@@ -24,9 +24,6 @@ function submitModal() {
         toggleDialog("contact_modal")
     }
 }
-document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
-    e.preventDefault()
-})
 //Create event listeners (click or enter)
 //Dialogues
     function createEventListeners(button, id) {
@@ -149,25 +146,19 @@ async function updateHeader(photographer) {
     document.getElementById("portrait").setAttribute("src", portrait_path)
     document.getElementById("portrait").setAttribute("alt", "Portrait de " + name)
     createSortingEventListeners(photographer)
+    // Update contact form
+    document.getElementById("modal_opener").onclick = function() {toggleDialog('contact_modal')}
+    document.getElementById("modal_closer").onclick = function() {toggleDialog('contact_modal')}
+    document.getElementById("modal_submitter").onclick = function() {submitModal()}
+    document.getElementsByTagName("form")[0].addEventListener('submit', (e) => {
+        e.preventDefault()
+    })
 }
 //Create article (These contain the thumbnail, title, and like button/count.)
 function createArticle(photographer, media) {
     const article = document.createElement("article")
     //Thumbnail
-        let thumbnail
-        if (media.image) {
-            thumbnail = document.createElement("img")
-            const file_path = "assets/photos/"+photographer.id+"/"+media.image
-            thumbnail.setAttribute("src", file_path)
-        }
-        else {
-            thumbnail = document.createElement("video")
-            article.classList.add("video_thumbnail")
-            const file_path = "assets/photos/"+photographer.id+"/"+media.video
-            const video_source = document.createElement("source")
-            video_source.setAttribute("src", file_path)
-            thumbnail.appendChild(video_source)
-        }
+        let thumbnail = createThumbnail(photographer, media)
         thumbnail.setAttribute("tabindex", "0")
         thumbnail.setAttribute("alt", media.title + " closeup")
         thumbnail.classList.add("thumbnail")
